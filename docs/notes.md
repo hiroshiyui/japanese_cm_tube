@@ -17,6 +17,11 @@
 
 # 如何做：實作篇
 
+## 資料清理
+
+1. 獲取資料： `curl -i -G -d "q=CM&relevanceLanguage=ja-JP&order=date&maxResults=25&type=video&part=snippet&key=THE_KEY_OF_Knowledge_Graph_Search_API" https://www.googleapis.com/youtube/v3/search`
+
+## GCP
 1. 開 Google Developers console
 1. 開 Japanese CM Tube 專案
 1. 建立 API 金鑰
@@ -26,3 +31,4 @@
     * （未定）Google Cloud Machine Learning Engine
     * （未定）Prediction API
     * （未定）Google Cloud Natural Language API
+
