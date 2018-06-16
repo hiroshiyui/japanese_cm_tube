@@ -20,6 +20,7 @@
 ## 資料清理
 
 1. 獲取資料： `curl -i -G -d "q=CM&relevanceLanguage=ja-JP&order=date&maxResults=25&type=video&part=snippet&key=THE_KEY_OF_Knowledge_Graph_Search_API" https://www.googleapis.com/youtube/v3/search`
+1. 判斷 title, description 是否為日本語： `curl -X POST -H "Authorization: Bearer "$(gcloud auth application-default print-access-token) -H "Content-Type: application/json; charset=utf-8" --data "{ 'q': '自動車CM 2003年 ニッサン リバティ 超低排出ガス車になりました M12 （後期型） TV commercial adverts Car Commercial film AD' }" "https://translation.googleapis.com/language/translate/v2/detect"`
 
 ## GCP
 1. 開 Google Developers console
