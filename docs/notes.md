@@ -33,3 +33,7 @@
     * （未定）Prediction API
     * （未定）Google Cloud Natural Language API
 
+
+## References
+
+* [Overview - Japanese Text Analysis - Guides at Penn Libraries](https://guides.library.upenn.edu/japanesetext)
