@@ -2,6 +2,7 @@
 require "yt"
 require "time"
 require "csv"
+require "logger"
 
 raise "Missing YT_API_KEY environment variable!" if ENV["YT_API_KEY"].nil?
 
@@ -25,6 +26,7 @@ def save_japanese_cm_videos(period = today)
     videos.each do |v|
       csv << [v.title, video_url(v.id)]
       puts "#{v.title} - #{video_url(v.id)}"
+      @logger.info("Saving: #{v.title} - #{video_url(v.id)}")
     end
   end
 end
@@ -47,4 +49,21 @@ def video_url(id)
   "https://www.youtube.com/watch?v=#{id}"
 end
 
-save_japanese_cm_videos
+def logger
+  # Setup logger
+  begin
+    file = File.open("japanese_cm_tube.log", File::WRONLY | File::APPEND)
+  rescue Errno::ENOENT
+    file = File.open("japanese_cm_tube.log", File::WRONLY | File::APPEND | File::CREAT)
+  end
+  logger = Logger.new(file)
+end
+
+begin
+  @logger = logger
+  @logger.info("Start saving video list...")
+  save_japanese_cm_videos
+rescue => err
+  @logger.fatal("Oops! There is something wrong!")
+  @logger.fatal(err)
+end

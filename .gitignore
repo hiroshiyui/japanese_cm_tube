@@ -1,3 +1,4 @@
 .secrets.md
 .env_yt_api
 *.csv
+*.log
