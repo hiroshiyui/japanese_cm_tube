@@ -2,7 +2,7 @@
 require "yt"
 require "time"
 
-raise "Please obtain me your YT_API_KEY environment variable!" if ENV["YT_API_KEY"].nil?
+raise "Missing YT_API_KEY environment variable!" if ENV["YT_API_KEY"].nil?
 
 def list_japanese_cm_videos(period = today)
   videos = Yt::Collections::Videos.new
