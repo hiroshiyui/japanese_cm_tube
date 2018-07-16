@@ -22,6 +22,10 @@
 1. 獲取資料： `curl -i -G -d "q=CM&relevanceLanguage=ja-JP&order=date&maxResults=25&type=video&part=snippet&key=THE_KEY_OF_Knowledge_Graph_Search_API" https://www.googleapis.com/youtube/v3/search`
 1. 判斷 title, description 是否為日本語： `curl -X POST -H "Authorization: Bearer "$(gcloud auth application-default print-access-token) -H "Content-Type: application/json; charset=utf-8" --data "{ 'q': '自動車CM 2003年 ニッサン リバティ 超低排出ガス車になりました M12 （後期型） TV commercial adverts Car Commercial film AD' }" "https://translation.googleapis.com/language/translate/v2/detect"`
 
+## 燒腦
+
+* 類似 https://www.youtube.com/watch?v=eJSeWRqbXlY 這樣沒有描述自己是「CM 動画」的廣告影片、所屬頻道又沒相關描述，在只針對文字描述處理的限制下，只能成為漏網之魚。要不就針對每部日本語 (`relevanceLanguage=ja-JP`) 的影片做視覺內容分析，要不就放棄。（SEO 對於放棄自我宣傳的朋友是愛莫能助、鞭長莫及）
+
 ## GCP
 1. 開 Google Developers console
 1. 開 Japanese CM Tube 專案
