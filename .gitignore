@@ -2,3 +2,4 @@
 .env_yt_api
 *.csv
 *.log
+!/archives/*.csv
