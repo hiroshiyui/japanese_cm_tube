@@ -2,13 +2,11 @@
 require "yt"
 require "csv"
 require "socket"
+require "uri"
 require_relative "helper_logger"
 
 ["YT_API_KEY", "YT_CLIENT_ID", "YT_CLIENT_SECRET"].each do |yt_env_var|
   raise "Missing #{yt_env_var} environment variable!" if ENV["#{yt_env_var}"].nil?
-end
-
-def read_videos_csv(path)
 end
 
 # main
@@ -33,9 +31,16 @@ begin
     session.close
     break
   end
-  access_token = /code=(?<access_token>.*)\sHTTP/.match(@request)[:access_token]
+  access_token = URI.unescape(/code=(?<access_token>.*)\sHTTP/.match(@request)[:access_token])
   account = Yt::Account.new authorization_code: access_token, redirect_uri: redirect_uri
-  puts account.email
+  playlist = account.create_playlist(title: "Japanese CM Tube - June 2018")
+
+  # import to playlist
+  videos_csv = CSV.read("1531804990.csv", :force_quotes => true, :headers => true)
+  videos_csv.each do |v|
+    playlist.add_video(v["id"])
+    sleep 1
+  end
 
   server.close
 rescue => err

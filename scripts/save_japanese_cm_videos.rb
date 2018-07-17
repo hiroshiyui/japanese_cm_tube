@@ -22,11 +22,11 @@ end
 def save_japanese_cm_videos(period = today)
   videos = get_japanese_cm_videos(period)
 
-  CSV.open("#{period[:from]}_#{period[:to]}.csv", "wb", :force_quotes => true) do |csv|
-    csv << ["id", "title", "url", "description", "channel_id", "channel_title", "channel_url"]
+  CSV.open("#{Time.now.to_i}.csv", "wb", :force_quotes => true) do |csv|
+    csv << ["id", "title", "published_at", "url", "description", "channel_id", "channel_title", "channel_url"]
     videos.each do |v|
       v_detail = Yt::Collections::Videos.new.where(id: v.id).first
-      csv << [v.id, v.title, video_url(v.id), v_detail.description, v_detail.channel_id, v_detail.channel_title, v_detail.channel_url]
+      csv << [v.id, v.title, v.published_at, video_url(v.id), v_detail.description, v_detail.channel_id, v_detail.channel_title, v_detail.channel_url]
       @logger.info("Saving: #{v.title} - #{video_url(v.id)}")
       sleep 1
     end
