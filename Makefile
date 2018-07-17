@@ -14,5 +14,8 @@ save_japanese_cm_videos: .check_env_yt_api
 save_last_month_japanese_cm_videos: .check_env_yt_api
 	export $$(cat .env_yt_api | xargs) && ruby ./scripts/save_japanese_cm_videos.rb last_month
 
+import_csv_to_youtube_playlist: .check_env_yt_api
+	export $$(cat .env_yt_api | xargs) && ruby ./scripts/import_csv_to_youtube_playlist.rb
+
 irb: .check_env_yt_api
 	export $$(cat .env_yt_api | xargs) && irb

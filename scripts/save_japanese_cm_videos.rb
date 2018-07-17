@@ -3,7 +3,7 @@ require "yt"
 require "time"
 require "active_support/core_ext"
 require "csv"
-require "logger"
+require_relative "helper_logger"
 
 raise "Missing YT_API_KEY environment variable!" if ENV["YT_API_KEY"].nil?
 
@@ -55,16 +55,6 @@ end
 
 def video_url(id)
   "https://www.youtube.com/watch?v=#{id}"
-end
-
-def logger
-  # Setup logger
-  begin
-    file = File.open("japanese_cm_tube.log", File::WRONLY | File::APPEND)
-  rescue Errno::ENOENT
-    file = File.open("japanese_cm_tube.log", File::WRONLY | File::APPEND | File::CREAT)
-  end
-  logger = Logger.new(file)
 end
 
 # main
