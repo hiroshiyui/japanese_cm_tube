@@ -9,6 +9,17 @@ require_relative "helper_logger"
   raise "Missing #{yt_env_var} environment variable!" if ENV["#{yt_env_var}"].nil?
 end
 
+def select_csv
+  csv_files = Dir.glob("*.csv")
+  csv_files.each_with_index do |csv, index|
+    puts "  #{index}. #{csv}"
+  end
+  puts "Select a CSV file for importing: "
+  choice = gets.chomp.to_i
+
+  CSV.read(csv_files[choice], :force_quotes => true, :headers => true)
+end
+
 # main
 begin
   @logger = logger
@@ -32,12 +43,15 @@ begin
     break
   end
   access_token = URI.unescape(/code=(?<access_token>.*)\sHTTP/.match(@request)[:access_token])
+
+  # create playlist
   account = Yt::Account.new authorization_code: access_token, redirect_uri: redirect_uri
-  playlist = account.create_playlist(title: "Japanese CM Tube - June 2018")
+  puts "Enter title of playlist: "
+  title = gets.chomp
+  playlist = account.create_playlist(title: title)
 
   # import to playlist
-  videos_csv = CSV.read("1531804990.csv", :force_quotes => true, :headers => true)
-  videos_csv.each do |v|
+  select_csv.each do |v|
     playlist.add_video(v["id"])
     sleep 1
   end
