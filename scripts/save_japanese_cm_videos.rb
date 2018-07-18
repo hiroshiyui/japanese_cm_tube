@@ -69,14 +69,14 @@ end
 private
 
 def today
-  from = Time.now.to_date.to_datetime.rfc3339
-  now = Time.now.utc.to_datetime.rfc3339
+  from = Time.now.utc.beginning_of_day.rfc3339
+  now = Time.now.utc.rfc3339
   { from: from, to: now }
 end
 
 def this_month
-  from = DateTime.parse("#{Time.now.utc.year}-#{Time.now.utc.month}-1 00:00:00").rfc3339
-  now = Time.now.utc.to_datetime.rfc3339
+  from = Time.now.utc.beginning_of_month.rfc3339
+  now = Time.now.utc.rfc3339
   { from: from, to: now }
 end
 
