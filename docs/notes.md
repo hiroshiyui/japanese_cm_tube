@@ -30,6 +30,7 @@
 ## 燒腦
 
 * 類似 https://www.youtube.com/watch?v=eJSeWRqbXlY 這樣沒有描述自己是「CM 動画」的廣告影片、所屬頻道又沒相關描述，在只針對文字描述處理的限制下，只能成為漏網之魚。要不就針對每部日本語 (`relevanceLanguage=ja-JP`) 的影片做視覺內容分析，要不就放棄。（SEO 對於放棄自我宣傳的朋友是愛莫能助、鞭長莫及）
+* Query terms 採用「CM 動画」會找到標題與描述出現兩者的影片，只使用 "CM" 則不會列出含有「動画」的影片，不曉得是不是撞到 rate limit 或是搜尋的限制。
 
 ## GCP
 1. 開 Google Developers console
