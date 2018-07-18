@@ -10,7 +10,7 @@ raise "Missing YT_API_KEY environment variable!" if ENV["YT_API_KEY"].nil?
 def get_japanese_cm_videos(period = today)
   videos = Yt::Collections::Videos.new
   videos.where(
-    q: "CM 動画",
+    q: "CM",
     relevanceLanguage: "ja-JP",
     videoDuration: "short",
     order: "date",
