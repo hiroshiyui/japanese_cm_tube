@@ -41,7 +41,7 @@ begin
 
     session.print "HTTP/1.1 200\r\n"
     session.print "Content-Type: text/html\r\n"
-    session.print "\r\n" # 3
+    session.print "\r\n"
     session.print 'Got access token, you can safely close this browser tab now.'
     session.close
     break
