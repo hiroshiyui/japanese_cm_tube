@@ -9,6 +9,8 @@ require_relative "helper_logger"
   raise "Missing #{yt_env_var} environment variable!" if ENV["#{yt_env_var}"].nil?
 end
 
+private
+
 def select_csv
   csv_files = Dir.glob("*.csv")
   csv_files.each_with_index do |csv, index|
@@ -44,16 +46,25 @@ begin
   end
   access_token = URI.unescape(/code=(?<access_token>.*)\sHTTP/.match(@request)[:access_token])
 
-  # create playlist
+  # create or open playlist
   account = Yt::Account.new authorization_code: access_token, redirect_uri: redirect_uri
   puts "Enter title of playlist: "
   title = gets.chomp
-  playlist = account.create_playlist(title: title)
+  playlist = account.playlists.find { |playlist| playlist.title == title }
+  if playlist.nil?
+    playlist = account.create_playlist(title: title)
+  end
 
   # import to playlist
   select_csv.each do |v|
-    playlist.add_video(v["id"])
-    sleep 1
+    if playlist.playlist_items.find { |item| item.video_id == v["id"] }
+      @logger.info "Skip adding the existed video: '#{v["id"]}'"
+      next
+    else
+      @logger.info "Adding '#{v["id"]}' to playlist..."
+      playlist.add_video(v["id"]) if v["be_excluded"].to_i.zero?
+      sleep 1
+    end
   end
 
   server.close
