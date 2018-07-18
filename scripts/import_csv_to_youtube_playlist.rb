@@ -50,7 +50,7 @@ begin
   account = Yt::Account.new authorization_code: access_token, redirect_uri: redirect_uri
   puts "Enter title of playlist: "
   title = gets.chomp
-  playlist = account.playlists.find { |playlist| playlist.title == title }
+  playlist = account.playlists.find { |pl| pl.title == title }
   if playlist.nil?
     playlist = account.create_playlist(title: title)
   end
