@@ -86,6 +86,15 @@ def last_month
   { from: from, to: to }
 end
 
+def specify_year_month
+  year_month = /(?<year>\d.*)\-(?<month>\d.*)$/.match(ARGV.first)
+  year = year_month['year'].to_i
+  month = year_month['month'].to_i
+  from = Time.new(year, month).beginning_of_month.utc.rfc3339
+  to = Time.new(year, month).end_of_month.utc.rfc3339
+  { from: from, to: to }
+end
+
 def video_url(id)
   "https://www.youtube.com/watch?v=#{id}"
 end
@@ -101,6 +110,10 @@ begin
     case ARGV.first
     when 'last_month'
       save_japanese_cm_videos(last_month)
+    when 'this_month'
+      save_japanese_cm_videos(this_month)
+    when /\d.*\-\d.*$/
+      save_japanese_cm_videos(specify_year_month)
     end
   end
 rescue StandardError => err
