@@ -9,4 +9,4 @@ gem 'yt', '~> 0.32.2'
 gem 'activesupport', '~> 5.2'
 gem 'solargraph'
 gem 'rufo'
-gem 'nokogiri', '~> 1.8.5'
+gem "nokogiri", ">= 1.10.8"
